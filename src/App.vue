@@ -21,9 +21,9 @@
       </div>
       <nav v-show="show_bar" transition="expand" class="ui borderless main menu fix-bz bar-blow">
         <div class="ui container bar-selection">
-          <a v-link="{'name': 'ApplyDel'}" :class="{'active': this.$route.name==='ApplyDel'}" class="item navi-bz move-left-bz">申请删除</a>
-          <a v-link="{'name': 'PublicGod', params: {'cat': '18+'}}" :class="{'active': this.$route.name==='PublicGod'}" class="item navi-bz move-left-bz">审核大神</a>
-          <a v-link="{'name': 'BioList'}" :class="{'active': this.$route.name==='BioList'}" class="item navi-bz move-left-bz">编辑故事</a>
+          <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='ApplyDel'}" class="item navi-bz move-left-bz">申请删除</router-link>
+          <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='PublicGod'}" class="item navi-bz move-left-bz">审核大神</router-link>
+          <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='BioList'}" class="item navi-bz move-left-bz">编辑故事</router-link>
         </div>
       </nav>
     </header>
@@ -35,6 +35,18 @@
   import $ from 'jquery'
   import store from './store'
   import CountUp from 'bz-count-up'
+  import 'bz-semantic-ui-site'
+  import 'bz-semantic-ui-reset'
+  import 'bz-semantic-ui-container'
+//  import 'bz-semantic-ui-grid'
+//  import 'bz-semantic-ui-header'
+//  import 'bz-semantic-ui-button'
+//  import 'bz-semantic-ui-popup'
+//  import 'bz-semantic-ui-transition'
+  import 'bz-semantic-ui-menu'
+  import 'bz-semantic-ui-table'
+  import 'bz-semantic-ui-dropdown'
+  import 'bz-semantic-ui-visibility'
   export default {
     store,
     data () {
