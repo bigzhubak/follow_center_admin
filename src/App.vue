@@ -74,10 +74,10 @@
         return store.state.unread_message_count
       },
       user_name () {
-        return store.state.user_info.user_name
+        return store.state.p.user_info.user_name
       },
       avatar () {
-        return store.state.user_info.picture
+        return store.state.p.user_info.picture
       }
     },
     ready () {
