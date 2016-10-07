@@ -1,5 +1,5 @@
 <template>
-  <div class="main container" >
+  <div id="app">
     <header class="main-header">
       <div class="ui borderless main menu bar-above">
         <div class="ui container">
@@ -27,7 +27,9 @@
         </div>
       </nav>
     </header>
-    <router-view :call_back="login_call_back"></router-view>
+    <div class="ui container" >
+      <router-view :call_back="login_call_back"></router-view>
+    </div>
   </div>
 </template>
 
@@ -38,15 +40,16 @@
   import 'bz-semantic-ui-site'
   import 'bz-semantic-ui-reset'
   import 'bz-semantic-ui-container'
-//  import 'bz-semantic-ui-grid'
-//  import 'bz-semantic-ui-header'
-//  import 'bz-semantic-ui-button'
-//  import 'bz-semantic-ui-popup'
-//  import 'bz-semantic-ui-transition'
+  //  import 'bz-semantic-ui-grid'
+  //  import 'bz-semantic-ui-header'
+  //  import 'bz-semantic-ui-button'
+  //  import 'bz-semantic-ui-popup'
+  //  import 'bz-semantic-ui-transition'
   import 'bz-semantic-ui-menu'
   import 'bz-semantic-ui-table'
   import 'bz-semantic-ui-dropdown'
   import 'bz-semantic-ui-visibility'
+  import 'bz-semantic-ui-image'
   export default {
     store,
     data () {
@@ -138,7 +141,7 @@
           if (this.show_bar) return
           this.show_bar = true
         }
-        )
+      )
     },
     methods: {
       queryUserInfo: function () {
@@ -182,9 +185,9 @@
       backToMain: function () {
         this.$router.go({name: 'Main', replace: true})
         // $('html, body').animate(
-        //   {
-        //     scrollTop: '0'
-        //   }, 500
+          //   {
+            //     scrollTop: '0'
+            //   }, 500
         // )
       }
     }

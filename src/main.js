@@ -5,9 +5,11 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import App from './App'
 import ApplyDel from './components/ApplyDel'
+import Login from './components/Login'
 
 const routes = [
-  { path: '/', component: ApplyDel }
+  { path: '/', component: ApplyDel },
+  { path: '/Login', component: Login }
 ]
 const router = new VueRouter({
   routes // short for routes: routes

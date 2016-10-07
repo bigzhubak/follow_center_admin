@@ -10,6 +10,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "bz-login": "^2.0.3",
     "vue": "^2.0.1"
   },
   "devDependencies": {
@@ -26,6 +27,7 @@
     "bz-semantic-ui-dropdown": "^2.0.0",
     "bz-semantic-ui-grid": "^1.0.1",
     "bz-semantic-ui-header": "^2.0.1",
+    "bz-semantic-ui-image": "^2.0.0",
     "bz-semantic-ui-menu": "^2.0.0",
     "bz-semantic-ui-popup": "^2.0.0",
     "bz-semantic-ui-site": "^2.0.0",
