@@ -4,7 +4,9 @@
       <div class="ui borderless main menu bar-above">
         <div class="ui container">
           <a @click="backToMain" href="javascript:;" class="header item logo-font-bz no-highlight">
-            <img v-show="show_bar" transition="expand" class="logo first-logo" src="../static/assets/logo.svg">
+            <transition name="expand">
+              <img v-show="show_bar" class="logo first-logo" src="../static/assets/logo.svg">
+            </transition>
             <div id="header">Follow Center</div>
           </a>
           <div class="right menu ">
@@ -19,13 +21,16 @@
           </div>
         </div>
       </div>
-      <nav v-show="show_bar" transition="expand" class="ui borderless main menu fix-bz bar-blow">
-        <div class="ui container bar-selection">
-          <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='ApplyDel'}" class="item navi-bz move-left-bz">申请删除</router-link>
-          <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='PublicGod'}" class="item navi-bz move-left-bz">审核大神</router-link>
-          <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='BioList'}" class="item navi-bz move-left-bz">编辑故事</router-link>
-        </div>
-      </nav>
+
+      <transition name="expand">
+        <nav v-show="show_bar" class="ui borderless main menu fix-bz bar-blow">
+          <div class="ui container bar-selection">
+            <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='ApplyDel'}" class="item navi-bz move-left-bz">申请删除</router-link>
+            <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='PublicGod'}" class="item navi-bz move-left-bz">审核大神</router-link>
+            <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='BioList'}" class="item navi-bz move-left-bz">编辑故事</router-link>
+          </div>
+        </nav>
+      </transition>
     </header>
     <div class="ui container" >
       <router-view :call_back="login_call_back"></router-view>
@@ -95,53 +100,55 @@
         return store.state.p.user_info.picture
       }
     },
-    ready () {
+    mounted: function () {
       this.queryUserInfo()
-      $('.fix-bz').visibility(
-        {
-          type: 'fixed'
-        }
-      )
-      $('.first-logo').visibility(
-        {
-          once: false,
-          onTopPassed: function () {
-            var y = $('.first-logo').offset().left
-            $('.first-logo').css('left:' + y)
-            $('.first-logo').addClass('fixed')
-            $('#header').addClass('padding-left-bz')
-            $('.move-left-bz').addClass('move-titile')
-          },
-          onTopPassedReverse: function () {
-            // this.checkBar()
-            // this.show_bar = true
-            $('.first-logo').removeClass('fixed')
-            $('#header').removeClass('padding-left-bz')
-            $('.move-left-bz').removeClass('move-titile')
+      this.$nextTick(function () {
+        $('.fix-bz').visibility(
+          {
+            type: 'fixed'
           }
-        }
-      )
-      this.$on('checkBar',
-        function () {
-          if (this.scroll_wait) return
-          else {
-            this.checkBar()
-            this.scroll_wait = true
-            let _this = this
-            window.setTimeout(
-              function () {
-                _this.scroll_wait = false
-              }
-            , 200)
+        )
+        $('.first-logo').visibility(
+          {
+            once: false,
+            onTopPassed: function () {
+              var y = $('.first-logo').offset().left
+              $('.first-logo').css('left:' + y)
+              $('.first-logo').addClass('fixed')
+              $('#header').addClass('padding-left-bz')
+              $('.move-left-bz').addClass('move-titile')
+            },
+            onTopPassedReverse: function () {
+              // this.checkBar()
+              // this.show_bar = true
+              $('.first-logo').removeClass('fixed')
+              $('#header').removeClass('padding-left-bz')
+              $('.move-left-bz').removeClass('move-titile')
+            }
           }
-        }
-      )
-      this.$on('showBar',
-        function () {
-          if (this.show_bar) return
-          this.show_bar = true
-        }
-      )
+        )
+        this.$on('checkBar',
+          function () {
+            if (this.scroll_wait) return
+            else {
+              this.checkBar()
+              this.scroll_wait = true
+              let _this = this
+              window.setTimeout(
+                function () {
+                  _this.scroll_wait = false
+                }
+              , 200)
+            }
+          }
+        )
+        this.$on('showBar',
+          function () {
+            if (this.show_bar) return
+            this.show_bar = true
+          }
+        )
+      })
     },
     methods: {
       queryUserInfo: function () {

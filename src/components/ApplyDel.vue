@@ -49,7 +49,7 @@
         apply_dels: []
       }
     },
-    ready () {
+    mounted () {
       this.getApplyDel()
     },
     methods: {
