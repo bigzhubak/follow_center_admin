@@ -210,18 +210,14 @@
     color: rgba(0,0,0,.76);
   }
   /* 必需 */
-  .expand-transition {
+  .expand-enter-active, .expand-leave-active {
     transition: all .3s ease;
     overflow: hidden;
-  }
-
-  /* .expand-enter 定义进入的开始状态 */
-  /* .expand-leave 定义离开的结束状态 */
-  .expand-enter, .expand-leave {
     height: 0;
     padding: 0;
     opacity: 0;
   }
+
   a {
     color: #2EA974;
     -webkit-transition: all 0.3s ease;
