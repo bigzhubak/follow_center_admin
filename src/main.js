@@ -16,12 +16,17 @@ const routes = [
 const router = new VueRouter({
   routes // short for routes: routes
 })
-App.router = router
-var app = new Vue(App).$mount('#app')
+router.beforeEach((to, from, next) => {
+  // check is login?
+  if (!checkLogin() && to.path !== '/Login') {
+    next('/Login')
+    return
+  }
+  next()
+})
 
-// check is login?
-if (!checkLogin()) {
-  app.$router.push('/Login')
-}
+App.router = router
+new Vue(App).$mount('#app')
+
 //  toastr show error
 initErrorHandle()
