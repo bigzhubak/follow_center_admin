@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "bz-login": "^2.0.3",
+    "bz-login": "^2.0.4",
     "vue": "^2.0.1"
   },
   "devDependencies": {

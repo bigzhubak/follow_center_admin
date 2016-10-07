@@ -55,7 +55,7 @@
     methods: {
       getApplyDel: function () {
         window.NProgress.start()
-        this.queryApplyDel(this.call_back)
+        // this.queryApplyDel(this.call_back)
       },
       call_back: function (apply_dels) {
         this.apply_dels = apply_dels

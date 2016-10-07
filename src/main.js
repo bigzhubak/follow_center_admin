@@ -6,6 +6,8 @@ Vue.use(VueRouter)
 import App from './App'
 import ApplyDel from './components/ApplyDel'
 import Login from './components/Login'
+import {checkLogin} from '../lib_bz/functions/user'
+import {initErrorHandle} from '../lib_bz/functions/error'
 
 const routes = [
   { path: '/', component: ApplyDel },
@@ -15,4 +17,11 @@ const router = new VueRouter({
   routes // short for routes: routes
 })
 App.router = router
-new Vue(App).$mount('#app')
+var app = new Vue(App).$mount('#app')
+
+// check is login?
+if (!checkLogin()) {
+  app.$router.push('/Login')
+}
+//  toastr show error
+initErrorHandle()
