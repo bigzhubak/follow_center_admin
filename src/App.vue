@@ -202,7 +202,7 @@
 </script>
 
 <style>
-  body {
+ .body-bz  {
     font-family: "Lato", arial, sans-serif;
     line-height: 1.5;
     font-weight: normal;
@@ -229,7 +229,7 @@
   a:hover, a:focus, a:active {
     color: #168454;
   }
-  // 全局的人物名字----------------------------
+  /* 全局的人物名字---------------------------- */
   .user-name-a {
     color: rgba(0,0,0,.8);
     transition: color 0.3s linear;
@@ -237,7 +237,7 @@
   .user-name-a:hover {
     color: rgba(0,0,0,.6);
   }
-  // 设置社交图标------------------------------
+  /* 设置社交图标------------------------------ */
   i.icon.god-icon-bz {
     transition: color 0.3s;
     color: #999999;
@@ -284,7 +284,7 @@
   i.icon.facebook.god-icon-bz:hover {
     color: #3B5998;
   }
-  // 设置导航--------------------------------
+  /* 设置导航-------------------------------- */
   .ui.menu.bar-above {
     margin-bottom: 0;
     border: none;
