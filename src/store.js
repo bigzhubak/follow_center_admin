@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import p from '../lib_bz/module'
+import p from '../../lib_bz/module'
 
 Vue.use(Vuex)
 

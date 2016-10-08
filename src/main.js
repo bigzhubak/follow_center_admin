@@ -6,8 +6,8 @@ Vue.use(VueRouter)
 import App from './App'
 import ApplyDel from './components/ApplyDel'
 import Login from './components/Login'
-import {checkLogin} from '../lib_bz/functions/user'
-import {initErrorHandle} from '../lib_bz/functions/error'
+import {checkLogin} from '../../lib_bz/functions/user'
+import {initErrorHandle} from '../../lib_bz/functions/error'
 
 const routes = [
   { path: '/', component: ApplyDel },
