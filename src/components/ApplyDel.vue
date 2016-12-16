@@ -18,8 +18,8 @@
         </a>
         </td>
         <td>
-          <button :class=" 'ui' + apply_del.type + 'button'">
-            <i :class="apply_del.type + 'icon'"></i>
+          <button :class=" 'ui ' + apply_del.type + ' button'">
+            <i :class="apply_del.type + ' icon'"></i>
             {{apply_del.type}}
           </button>
         </td>
@@ -44,25 +44,20 @@
     props: [],
     components: {
     },
+    computed: {
+      apply_dels () {
+        return this.$store.state.apply_dels
+      }
+    },
     data: function () {
       return {
-        apply_dels: []
       }
     },
     mounted () {
-      this.getApplyDel()
+      this.$store.dispatch('getApplyDel')
     },
     methods: {
-      getApplyDel: function () {
-        window.NProgress.start()
-        // this.queryApplyDel(this.call_back)
-      },
-      call_back: function (apply_dels) {
-        this.apply_dels = apply_dels
-        window.NProgress.done()
-      },
       approve: function (apply_del) {
-        window.NProgress.start()
         this.approveApplyDel(apply_del, this.getApplyDel)
       }
     }

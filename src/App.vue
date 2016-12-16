@@ -1,74 +1,59 @@
 <template>
-  <div id="app">
+  <div id='app' class="main container" >
     <header class="main-header">
       <div class="ui borderless main menu bar-above">
         <div class="ui container">
           <a @click="backToMain" href="javascript:;" class="header item logo-font-bz no-highlight">
-            <transition name="expand">
-              <img v-show="show_bar" class="logo first-logo" src="../static/assets/logo.svg">
-            </transition>
+            <img v-show="show_bar" class="logo first-logo" src="../static/assets/logo.svg">
             <div id="header">Follow Center</div>
           </a>
           <div class="right menu ">
             <div class="item large monitor only">
+              <form @keyup.13="search" v-on:submit.prevent class="ui  transparent icon input">
+                <input v-model="key" type="text" placeholder="搜索资讯">
+                <i @click="search" class="search link icon"></i>
+              </form>
             </div>
-            <div class="ui simple dropdown item user-imfor-bz">
+
+            <div v-show="user_name" class="ui simple dropdown item user-imfor-bz">
               <img :src="avatar" class="ui avatar image">
               <div class="menu login-menu-bz">
+                <a @click="$router.push({ name: 'God', params: { god_name: user_name }})" class="item">我发布的</a>
                 <a @click="logout" class="item">退出登录</a>
               </div>
             </div>
+            <a v-show="user_name===''" href="/login.html" class="item">
+              登录
+            </a>
           </div>
         </div>
       </div>
-
-      <transition name="expand">
-        <nav v-show="show_bar" class="ui borderless main menu fix-bz bar-blow">
-          <div class="ui container bar-selection">
-            <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='ApplyDel'}" class="item navi-bz move-left-bz">申请删除</router-link>
-            <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='PublicGod'}" class="item navi-bz move-left-bz">审核大神</router-link>
-            <router-link :to="{ name: 'ApplyDel'}" :class="{'active': this.$route.name==='BioList'}" class="item navi-bz move-left-bz">编辑故事</router-link>
-          </div>
-        </nav>
-      </transition>
+      <nav v-show="show_bar" class="ui borderless main menu fix-bz bar-blow">
+        <div class="ui container bar-selection">
+          <router-link :to="{'name': 'Recommand'}" :class="{'active': this.$route.name==='Recommand'}" class="item navi-bz move-left-bz">寻他</router-link>
+          <router-link v-show="user_name!=''" :to="{ name:'MyGods', params: {'cat': 'all'}}" :class="{'active': this.$route.name==='MyGods'}" class="item navi-bz">已跟踪</router-link>
+          <router-link v-show="user_name!=''" :to="{ name:'Collect'}" :class="{'active': this.$route.name==='Collect'}" class="item navi-bz">收藏</router-link>
+          <router-link :to="{ name:'Bio'}" :class="{'active': this.$route.name==='Bio'}" class="item navi-bz">传记</router-link>
+        </div>
+      </nav>
     </header>
-    <div class="ui container" >
-      <router-view :call_back="login_call_back"></router-view>
-    </div>
+    <router-view :call_back="login_call_back"></router-view>
   </div>
 </template>
-
 <script>
+  import {checkLogin} from '../../lib_bz/functions/user'
   import $ from 'jquery'
   import store from './store'
-  import CountUp from 'bz-count-up'
-  import 'bz-semantic-ui-site'
-  import 'bz-semantic-ui-reset'
-  import 'bz-semantic-ui-container'
-  //  import 'bz-semantic-ui-grid'
-  //  import 'bz-semantic-ui-header'
-  //  import 'bz-semantic-ui-button'
-  //  import 'bz-semantic-ui-popup'
-  //  import 'bz-semantic-ui-transition'
-  import 'bz-semantic-ui-menu'
-  import 'bz-semantic-ui-table'
-  import 'bz-semantic-ui-dropdown'
-  import 'bz-semantic-ui-visibility'
-  import 'bz-semantic-ui-image'
+  import NProgress from 'nprogress'
   export default {
     store,
     data () {
       return {
         key: '',
-        is_scroll: false,
-        last_scroll_top: 0,
-        nav_bar_height: 0,
-        show_bar: true,
         scroll_wait: false // 不让checkBar因为触发太多次而影响效率
       }
     },
     components: {
-      CountUp
     },
     watch: {
       'unread_message_count': function (val, oldVal) {
@@ -80,15 +65,18 @@
       },
       'loading': function (val, oldVal) {
         if (val) {
-          window.NProgress.start()
+          NProgress.start()
         } else {
-          window.NProgress.done()
+          NProgress.done()
         }
       }
     },
     computed: {
+      show_bar () {
+        return this.$store.state.show_bar
+      },
       loading () {
-        return store.state.loading
+        return store.state.p.loading
       },
       unread_message_count () {
         return store.state.unread_message_count
@@ -100,8 +88,10 @@
         return store.state.p.user_info.picture
       }
     },
-    mounted: function () {
-      this.queryUserInfo()
+    mounted () {
+      console.log('checkLogin')
+      console.log(checkLogin())
+      if (checkLogin()) this.$store.dispatch('getUserInfo')
       this.$nextTick(function () {
         $('.fix-bz').visibility(
           {
@@ -142,34 +132,9 @@
             }
           }
         )
-        this.$on('showBar',
-          function () {
-            if (this.show_bar) return
-            this.show_bar = true
-          }
-        )
       })
     },
     methods: {
-      queryUserInfo: function () {
-        this.$store.dispatch('queryUserInfo')
-      },
-      checkBar: function () {
-        var st = $(window).scrollTop()
-        this.nav_bar_height = $('header').outerHeight()
-
-        if (Math.abs(this.last_scroll_top - st) <= 5) return
-
-        if (st > this.last_scroll_top && st > this.nav_bar_height) {
-          this.show_bar = false
-        } else {
-          if (st + $(window).height() < $(document).height()) {
-            this.show_bar = true
-          }
-        }
-
-        this.last_scroll_top = st
-      },
       logout: function () {
         if (window.bz_url) {
           window.localStorage.removeItem('user_id')
@@ -184,13 +149,14 @@
       search: function () {
         if (this.key) {
           store.state.search_messages = [] // 清空上次的查找
-          this.$router.go({name: 'Search', params: {key: this.key}})
+          this.$router.push({name: 'Search', params: {key: this.key}})
+          console.log('fucnk')
         } else {
-          this.$router.go({name: 'Main'})
+          this.$router.push({name: 'Main'})
         }
       },
       backToMain: function () {
-        this.$router.go({name: 'Main', replace: true})
+        this.$router.push({name: 'Main'})
         // $('html, body').animate(
           //   {
             //     scrollTop: '0'
@@ -200,24 +166,27 @@
     }
   }
 </script>
-
 <style>
- .body-bz  {
-    font-family: "Lato", arial, sans-serif;
+  body {
+    font-family: "Lato", "arial","Microsoft YaHei","sans-serif";
     line-height: 1.5;
     font-weight: normal;
     background-color: #fafafa;
     color: rgba(0,0,0,.76);
   }
   /* 必需 */
-  .expand-enter-active, .expand-leave-active {
+  .expand-transition {
     transition: all .3s ease;
     overflow: hidden;
+  }
+
+  /* .expand-enter 定义进入的开始状态 */
+  /* .expand-leave 定义离开的结束状态 */
+  .expand-enter, .expand-leave {
     height: 0;
     padding: 0;
     opacity: 0;
   }
-
   a {
     color: #2EA974;
     -webkit-transition: all 0.3s ease;
@@ -242,21 +211,6 @@
     transition: color 0.3s;
     color: #999999;
   }
-  .github-light {
-    color: rgba(0,0,0,0.7);
-  }
-  .twitter-light {
-    color: #41ABE1;
-  }
-  .instagram-light {
-    color: #7E4532;
-  }
-  .tumblr-light {
-    color: #36465D;
-  }
-  .facebook-light {
-    color: #3B5998;
-  }
   .github.light-bz {
     color: rgba(0,0,0,0.7);
   }
@@ -268,6 +222,9 @@
   }
   .facebook.light-bz {
     color: #3B5998;
+  }
+  .tumblr.light-bz {
+    color: #36465D;
   }
   i.icon.github.god-icon-bz:hover {
     color: rgba(0,0,0,0.7);
@@ -284,6 +241,9 @@
   i.icon.facebook.god-icon-bz:hover {
     color: #3B5998;
   }
+  .god-icon-bz a:hover {
+    color: #888888;
+  }
   /* 设置导航-------------------------------- */
   .ui.menu.bar-above {
     margin-bottom: 0;
@@ -295,9 +255,6 @@
     font-size: 1.5em;
     font-weight: 600;
     padding-left: 0.5em;
-  }
-  .ui.bar-num-bz {
-    color: #54B98F;
   }
   .ui.menu.bar-blow {
     margin-top: 0;
