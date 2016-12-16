@@ -17,6 +17,11 @@ export const actions = {
     return dispatch('get', '/api_apply_del').then(function (data) {
       state.apply_dels = data.apply_dels
     })
+  },
+  approveApplyDel ({ state, commit, dispatch }, apply_del) {
+    return dispatch('put', {url: '/api_apply_del', body: apply_del, loading: true}).then(function (data) {
+      dispatch('getApplyDel')
+    })
   }
 }
 // getters

@@ -13,7 +13,7 @@
     <tbody>
       <tr v-for="apply_del in apply_dels">
         <td>
-          <a :href="'/g/'+ apply_del.god_name">
+          <a :href="'http://follow.center/God/'+ apply_del.god_name" target="blank">
           {{apply_del.god_name}}
         </a>
         </td>
@@ -30,7 +30,7 @@
           {{apply_del.reason}}
         </td>
         <td>
-          <button @click="approve(apply_del)" class="ui compact icon button">
+          <button @click="$store.dispatch('approveApplyDel', apply_del)" class="ui compact icon button">
             <i class="delete icon"></i>
           </button>
         </td>
