@@ -1,6 +1,3 @@
-<style>
-</style>
-
 <template>
   <table class="ui celled padded table">
     <thead>
@@ -8,7 +5,8 @@
         <th class="single line">类型</th>
         <th class="single line">次数</th>
         <th class="single line">原因</th>
-        <th class="single line">操作</th>
+        <th class="single line">批准删除</th>
+        <th class="single line">帐号存在的</th>
     </tr></thead>
     <tbody>
       <tr v-for="apply_del in apply_dels">
@@ -32,6 +30,11 @@
         <td>
           <button @click="$store.dispatch('approveApplyDel', apply_del)" class="ui compact icon button">
             <i class="delete icon"></i>
+          </button>
+        </td>
+        <td>
+          <button @click="$store.dispatch('rejectApplyDel', apply_del.id)" class="ui compact icon button">
+            <i class="hand spock icon"></i>
           </button>
         </td>
       </tr>

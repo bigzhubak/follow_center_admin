@@ -22,6 +22,11 @@ export const actions = {
     return dispatch('put', {url: '/api_apply_del', body: apply_del, loading: true}).then(function (data) {
       dispatch('getApplyDel')
     })
+  },
+  rejectApplyDel ({ state, commit, dispatch }, id) {
+    return dispatch('delete', '/api_apply_del/' + id).then(function (data) {
+      dispatch('getApplyDel')
+    })
   }
 }
 // getters
