@@ -31,8 +31,8 @@
       <nav class="ui borderless main menu fix-bz bar-blow">
         <div class="ui container bar-selection">
           <a @click="$router.push({'name': 'ApplyDel'})" :class="{'active': this.$route.name==='ApplyDel'}" class="item navi-bz move-left-bz">申请删除</a>
-          <a :to="{'name': 'PublicGod'}" :class="{'active': this.$route.name==='PublicGod'}" class="item navi-bz move-left-bz">审核大神</a>
-          <a :to="{'name': 'BioList'}" :class="{'active': this.$route.name==='BioList'}" class="item navi-bz move-left-bz">编辑故事</a>
+          <a @click="$router.push({'name': 'PublicGod'})" :class="{'active': this.$route.name==='PublicGod'}" class="item navi-bz move-left-bz">审核大神</a>
+          <a @click="$router.push({'name': 'BioList'})" :class="{'active': this.$route.name==='BioList'}" class="item navi-bz move-left-bz">编辑故事</a>
         </div>
       </nav>
     </header>

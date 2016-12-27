@@ -3,7 +3,7 @@
     <div class="ui stackable grid">
       <div class="row">
         <div class="four wide column top-margin">
-          <cat route_name="Recommand">
+          <cat route_name="PublicGod">
           </cat>
         </div>
         <div class="twelve wide column no-padding-bz">
