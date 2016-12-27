@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import p from 'bz-lib/module'
 import _ from 'lodash'
+import toastr from 'toastr'
 function initCatGod (state, cat) {
   if (state.cat_gods[cat] === undefined) {
     Vue.set(state.cat_gods, cat, [])
@@ -29,6 +30,11 @@ export const mutations = {
 }
 // actions
 export const actions = {
+  putGod ({ state, commit, dispatch }, god) {
+    return dispatch('put', {url: '/api_god', body: god, loading: true}).then(function (data) {
+      toastr.info('成功')
+    })
+  },
   getGods ({ state, commit, dispatch }, cat) {
     let parm = {
       cat: cat

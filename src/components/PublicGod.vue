@@ -7,15 +7,6 @@
           </cat>
         </div>
         <div class="twelve wide column no-padding-bz">
-          <div class="ui center aligned basic segment add-newgod-bz"> 
-            <a v-show="stat==='button'||stat==='adding'" @click="showAddGodInput" href="javascript:void(0)" class="ui add-newgod-style">
-              <i class="add icon"></i>添加要跟踪的新目标
-            </a>
-            <div v-show="stat==='input'" class="ui action input">
-              <input @keyup.13="add" v-model="input_name" id="id_add_god" type="text" placeholder="帐号名，比如 bigzhu">
-              <div @click="add" class="ui button">添加</div>
-            </div>
-          </div>
           <div v-show="not_my_gods.length === 0 && no_more && !loading && stat!=='adding'" class="ui icon message">
             <i class="notched circle loading icon"></i>
             <div class="content">
@@ -160,8 +151,17 @@
       }
     },
     methods: {
-      addDone: function () {
-        this.stat = 'button'
+      togglePublic: function (god) {
+        let new_god = {}
+        new_god.name = god.name
+        if (god.is_public === 1) {
+          new_god.is_public = 0
+        } else {
+          new_god.is_public = 1
+        }
+        this.$store.dispatch('putGod', new_god).then(function (data) {
+          god.is_public = new_god.is_public
+        })
       },
       add: function () {
         this.god_name = this.input_name.trim()
