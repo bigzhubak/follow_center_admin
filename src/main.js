@@ -32,7 +32,6 @@ let instance = new Vue(App).$mount('#app')
 fastclick.attach(document.body)
 
 import initErrorHandle from 'bz-lib/functions/initErrorHandle'
-//  toastr show error
 initErrorHandle()
 export default {
   instance

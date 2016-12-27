@@ -13,9 +13,9 @@ import BioEditor from './components/BioEditor'
 
 const routes = [
   { path: '/', redirect: '/BioList' },
-  { path: '/ApplyDel', component: ApplyDel },
-  { path: '/Login', component: Login },
-  { path: '/BioList', component: BioList },
+  { path: '/ApplyDel', name: 'ApplyDel', component: ApplyDel },
+  { path: '/Login', name: 'Login', component: Login },
+  { path: '/BioList', name: 'BioList', component: BioList },
   { path: '/BioEditor/:id*', name: 'BioEditor', component: BioEditor }
   // { path: '/TheMessage', component: TheMessage },
   // { path: '/God/:god_name', component: God },
