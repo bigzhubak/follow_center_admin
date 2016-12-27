@@ -4,7 +4,7 @@
       <div class="ui borderless main menu bar-above">
         <div class="ui container">
           <a @click="backToMain" href="javascript:;" class="header item logo-font-bz no-highlight">
-            <img v-show="show_bar" class="logo first-logo" src="../static/assets/logo.svg">
+            <img class="logo first-logo" src="../static/assets/logo.svg">
             <div id="header">Follow Center</div>
           </a>
           <div class="right menu ">
@@ -28,12 +28,11 @@
           </div>
         </div>
       </div>
-      <nav v-show="show_bar" class="ui borderless main menu fix-bz bar-blow">
+      <nav class="ui borderless main menu fix-bz bar-blow">
         <div class="ui container bar-selection">
-          <router-link :to="{'name': 'Recommand'}" :class="{'active': this.$route.name==='Recommand'}" class="item navi-bz move-left-bz">寻他</router-link>
-          <router-link v-show="user_name!=''" :to="{ name:'MyGods', params: {'cat': 'all'}}" :class="{'active': this.$route.name==='MyGods'}" class="item navi-bz">已跟踪</router-link>
-          <router-link v-show="user_name!=''" :to="{ name:'Collect'}" :class="{'active': this.$route.name==='Collect'}" class="item navi-bz">收藏</router-link>
-          <router-link :to="{ name:'Bio'}" :class="{'active': this.$route.name==='Bio'}" class="item navi-bz">传记</router-link>
+          <a @click="$router.push({'name': 'ApplyDel'})" :class="{'active': this.$route.name==='ApplyDel'}" class="item navi-bz move-left-bz">申请删除</a>
+          <a :to="{'name': 'PublicGod'}" :class="{'active': this.$route.name==='PublicGod'}" class="item navi-bz move-left-bz">审核大神</a>
+          <a :to="{'name': 'BioList'}" :class="{'active': this.$route.name==='BioList'}" class="item navi-bz move-left-bz">编辑故事</a>
         </div>
       </nav>
     </header>
@@ -41,7 +40,7 @@
   </div>
 </template>
 <script>
-  import {checkLogin} from '../../lib_bz/functions/user'
+  import {checkLogin} from 'bz-lib/functions/user'
   import $ from 'jquery'
   import store from './store'
   import NProgress from 'nprogress'
@@ -72,9 +71,6 @@
       }
     },
     computed: {
-      show_bar () {
-        return this.$store.state.show_bar
-      },
       loading () {
         return store.state.p.loading
       },

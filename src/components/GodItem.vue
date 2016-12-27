@@ -1,0 +1,1 @@
+/Users/bigzhu/follow_center/src/components/GodItem.vue

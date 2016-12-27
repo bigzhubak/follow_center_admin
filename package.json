@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "bz-login": "^2.0.4",
+    "bz-rich-text": "^2.0.1",
+    "bz-upload-picture": "^2.0.2",
     "vue": "^2.0.1"
   },
   "devDependencies": {
