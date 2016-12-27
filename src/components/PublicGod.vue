@@ -29,10 +29,17 @@
             </div>
           </div>
           <god-item v-for="god in not_my_gods" :god="god" class="god-item">
+            <div class="ui toggle checkbox">
+              <input v-model="god.is_public" @click="togglePublic(god)" type="checkbox" name="public" >
+              <label></label>
+            </div>
+            <select v-model="god.cat" @change="changeCat(god)">
+              <option>18+</option>
+              <option v-for="cat in cats">{{cat.cat}}</option>
+            </select>
           </god-item>
 
           <div class='ui active centered inline loader' v-bind:class="{ 'invisible_bz': !loading}"></div>
-          <bottom-loader :el="$el" element_class=".god-item" v-on:bottom="bottomCall"></bottom-loader>
         </div>
       </div>
     </div>
@@ -77,7 +84,7 @@
       '$route.params': {
         handler: function () {
           let _this = this
-          this.$store.dispatch('getPublicGods', this.$route.params.cat).then(function (data) {
+          this.$store.dispatch('getGods', this.$route.params.cat).then(function (data) {
             _this.disableGodLoading()
           })
           this.stat = 'button'
@@ -87,7 +94,7 @@
     },
     mounted () {
       let self = this
-      this.$store.dispatch('getPublicGods', this.$route.params.cat).then(function (data) {
+      this.$store.dispatch('getGods', this.$route.params.cat).then(function (data) {
         self.disableGodLoading()
       })
       $('body').visibility()
@@ -116,6 +123,9 @@
       )
     },
     computed: {
+      cats: function () {
+        return this.$store.state.cats
+      },
       loading () {
         return this.$store.state.p.loading
       },
@@ -150,9 +160,6 @@
       }
     },
     methods: {
-      bottomCall: function () {
-        this.$store.dispatch('getPublicGods', this.$route.params.cat)
-      },
       addDone: function () {
         this.stat = 'button'
       },

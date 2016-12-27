@@ -29,6 +29,15 @@ export const mutations = {
 }
 // actions
 export const actions = {
+  getGods ({ state, commit, dispatch }, cat) {
+    let parm = {
+      cat: cat
+    }
+    return dispatch('get', {url: '/api_gods', body: parm}).then(function (data) {
+      commit('SET_CAT_GODS', {cat: cat, gods: data.gods})
+      return data
+    })
+  },
   getCat ({ state, commit, dispatch }, just_my = null) {
     let parm = {
       just_my: just_my
