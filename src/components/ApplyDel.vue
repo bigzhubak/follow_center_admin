@@ -12,7 +12,7 @@
       <tr v-for="apply_del in apply_dels">
         <td>
           <a :href="'http://follow.center/God/'+ apply_del.god_name" target="blank">
-          {{apply_del.god_name}}
+          {{apply_del.social_name}}
         </a>
         </td>
         <td>
