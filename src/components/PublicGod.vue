@@ -47,12 +47,12 @@
     props: {
       message: {
         type: Object,
-        default: function () {
-          return {
-            user_name: '',
-            id: 0
-          }
+      default: function () {
+        return {
+          user_name: '',
+          id: 0
         }
+      }
       }
     },
     components: {
@@ -73,44 +73,15 @@
     watch: {
       '$route.params': {
         handler: function () {
-          let _this = this
-          this.$store.dispatch('getGods', this.$route.params.cat).then(function (data) {
-            _this.disableGodLoading()
-          })
+          this.getGods()
           this.stat = 'button'
         },
         deep: true
       }
     },
     mounted () {
-      let self = this
-      this.$store.dispatch('getGods', this.$route.params.cat).then(function (data) {
-        self.disableGodLoading()
-      })
+      this.getGods()
       $('body').visibility()
-    },
-    attached: function () {
-      var tool_tips_target = $(this.$el).find('.show-god-info')
-      var popup_content = $(this.$el).find('.ui.card')
-      $(tool_tips_target).popup(
-        {
-          popup: $(popup_content),
-          lastResort: true,
-          position: 'bottom left',
-          hoverable: true,
-          delay: {
-            show: 100,
-            hide: 500
-          },
-          onShow: (
-            function (_this) {
-              return function () {
-                _this.getGodInfo()
-              }
-            }
-          )(this)
-        }
-      )
     },
     computed: {
       cats: function () {
@@ -203,8 +174,11 @@
           this.no_more = false
         }
       },
-      getGodInfo: function () {
-        this.queryGod(this.message.user_name)
+      getGods: function () {
+        let self = this
+        this.$store.dispatch('getGods', this.$route.params.cat).then(function (data) {
+          self.disableGodLoading()
+        })
       }
     }
   }
