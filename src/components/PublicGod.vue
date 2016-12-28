@@ -21,7 +21,7 @@
           </div>
           <god-item v-for="god in not_my_gods" :god="god" class="god-item">
             <div class="ui toggle checkbox">
-              <input v-model="god.is_public" @click="togglePublic(god)" type="checkbox" name="public" >
+              <input :checked = "god.is_public == 1 || god.is_public == 2" @click="togglePublic(god)" type="checkbox" name="public" >
               <label></label>
             </div>
             <select v-model="god.cat" @change="changeCat(god)">
@@ -150,6 +150,12 @@
       }
     },
     methods: {
+      isPublic: function (is_public) {
+        if (is_public === 0) {
+          return false
+        }
+        return true
+      },
       changeCat: function (god) {
         let new_god = {}
         new_god.name = god.name
@@ -161,6 +167,9 @@
       togglePublic: function (god) {
         let new_god = {}
         new_god.name = god.name
+        if (god.is_public === 2) {
+          return
+        }
         if (god.is_public === 1) {
           new_god.is_public = 0
         } else {
@@ -194,25 +203,8 @@
           this.no_more = false
         }
       },
-      toggleCollect: function (message) {
-        if (message.collect) {
-          this.$store.dispatch('uncollect', message.id).then(function (data) {
-            this.uncollectDone(data.message)
-          })
-        } else {
-          this.$store.dispatch('collect', message.id).then(function (data) {
-            this.collectDone(data.message)
-          })
-        }
-      },
       getGodInfo: function () {
         this.queryGod(this.message.user_name)
-      },
-      collectDone: function (message) {
-        message.collect = 1
-      },
-      uncollectDone: function (message) {
-        message.collect = null
       }
     }
   }

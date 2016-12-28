@@ -44,16 +44,11 @@ export const actions = {
       return data
     })
   },
-  getCat ({ state, commit, dispatch }, just_my = null) {
+  getCat ({ state, commit, dispatch }) {
     let parm = {
-      just_my: just_my
     }
     return dispatch('get', {url: '/api_cat', body: parm}).then(function (data) {
-      if (just_my) {
-        state.my_cats = data.cats
-      } else {
-        state.cats = data.cats
-      }
+      state.cats = data.cats
       return data
     })
   },
