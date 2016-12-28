@@ -47,12 +47,12 @@
     props: {
       message: {
         type: Object,
-      default: function () {
-        return {
-          user_name: '',
-          id: 0
+        default: function () {
+          return {
+            user_name: '',
+            id: 0
+          }
         }
-      }
       }
     },
     components: {
@@ -128,11 +128,13 @@
         return true
       },
       changeCat: function (god) {
+        let self = this
         let new_god = {}
         new_god.name = god.name
         new_god.cat = god.cat
         this.$store.dispatch('putGod', new_god).then(function (data) {
           god.cat = new_god.cat
+          self.getGods()
         })
       },
       togglePublic: function (god) {
