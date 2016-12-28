@@ -28,9 +28,8 @@
               <option>18+</option>
               <option v-for="cat in cats">{{cat.cat}}</option>
             </select>
+            <a :href="'https://follow.center/God/'+god.name" target="_blank">{{god.name}}</a>
           </god-item>
-
-          <div class='ui active centered inline loader' v-bind:class="{ 'invisible_bz': !loading}"></div>
         </div>
       </div>
     </div>
@@ -151,6 +150,14 @@
       }
     },
     methods: {
+      changeCat: function (god) {
+        let new_god = {}
+        new_god.name = god.name
+        new_god.cat = god.cat
+        this.$store.dispatch('putGod', new_god).then(function (data) {
+          god.cat = new_god.cat
+        })
+      },
       togglePublic: function (god) {
         let new_god = {}
         new_god.name = god.name
