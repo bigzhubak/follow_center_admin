@@ -24,10 +24,14 @@
               <input :checked = "god.is_public == 1 || god.is_public == 2" @click="togglePublic(god)" type="checkbox" name="public" >
               <label></label>
             </div>
-            <select v-model="god.cat" @change="changeCat(god)">
+            <select v-model="god.cat">
               <option>18+</option>
+              <option>{{god.cat}}</option>
               <option v-for="cat in cats">{{cat.cat}}</option>
             </select>
+            <div class="ui mini input">
+              <input @keyup.13="changeCat(god)" v-model="god.cat" type="text">
+            </div>
             <a :href="'https://follow.center/God/'+god.name" target="_blank">{{god.name}}</a>
           </god-item>
         </div>
@@ -46,13 +50,7 @@
   export default {
     props: {
       message: {
-        type: Object,
-        default: function () {
-          return {
-            user_name: '',
-            id: 0
-          }
-        }
+        type: Object
       }
     },
     components: {
@@ -121,11 +119,9 @@
       }
     },
     methods: {
-      isPublic: function (is_public) {
-        if (is_public === 0) {
-          return false
-        }
-        return true
+      test: function (god) {
+        console.log('test')
+        console.log(god)
       },
       changeCat: function (god) {
         let self = this
@@ -135,6 +131,7 @@
         this.$store.dispatch('putGod', new_god).then(function (data) {
           god.cat = new_god.cat
           self.getGods()
+          self.$store.dispatch('getCat')
         })
       },
       togglePublic: function (god) {

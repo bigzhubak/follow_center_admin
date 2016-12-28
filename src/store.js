@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import p from 'bz-lib/module'
-import _ from 'lodash'
 import toastr from 'toastr'
 function initCatGod (state, cat) {
   if (state.cat_gods[cat] === undefined) {
@@ -20,12 +19,7 @@ export const state = {
 export const mutations = {
   SET_CAT_GODS (state, {cat, gods}) {
     initCatGod(state, cat)
-    let merge_gods = state.cat_gods[cat].concat(gods)
-    let uniq_gods = _.uniqBy(merge_gods, function (d) {
-      return d.id
-    }
-    )
-    state.cat_gods[cat] = uniq_gods
+    state.cat_gods[cat] = gods
   }
 }
 // actions
