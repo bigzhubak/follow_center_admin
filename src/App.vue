@@ -40,7 +40,6 @@
   </div>
 </template>
 <script>
-  import {checkLogin} from 'bz-lib/functions/user'
   import $ from 'jquery'
   import store from './store'
   import NProgress from 'nprogress'
@@ -71,6 +70,9 @@
       }
     },
     computed: {
+      is_login () {
+        return this.$store.state.p.is_login
+      },
       loading () {
         return store.state.p.loading
       },
@@ -85,9 +87,7 @@
       }
     },
     mounted () {
-      console.log('checkLogin')
-      console.log(checkLogin())
-      if (checkLogin()) this.$store.dispatch('getUserInfo')
+      if (this.is_login) { this.$store.dispatch('getUserInfo') }
       this.$nextTick(function () {
         $('.fix-bz').visibility(
           {
