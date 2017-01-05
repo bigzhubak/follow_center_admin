@@ -32,7 +32,7 @@
       if (this.id) {
         this.$store.dispatch('getRichText', {id: this.id})
       } else {
-        this.$store.dispatch('CLEAN_RICH_TEXT')
+        this.$store.commit('CLEAN_RICH_TEXT')
       }
     },
     methods: {
