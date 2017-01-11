@@ -1,0 +1,1 @@
+/Users/bigzhu/follow_center/src/locales.js
